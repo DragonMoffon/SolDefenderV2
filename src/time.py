@@ -83,6 +83,10 @@ class Clock:
     def elapsed(self):
         return self._elapsed
 
+    @property
+    def time(self):
+        return self._elapsed
+
 
 class GlobalClock(Clock):
 
@@ -106,3 +110,7 @@ class GlobalClock(Clock):
 
     def frames_since(self, start_frame):
         return self.frame_count - start_frame
+
+
+GLOBAL_CLOCK: GlobalClock = GlobalClock()
+LOCAL_CLOCK: Clock = GLOBAL_CLOCK.clocks[0]

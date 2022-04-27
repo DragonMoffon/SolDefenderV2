@@ -1,8 +1,9 @@
 import arcade
 
-from src.physics.linear import Vec2
-from src.physics.rigidbody import RigidBody
-from src import Input
+from .linear import Vec2
+from .rigidbody import RigidBody
+
+from src.inputs import Input
 
 
 class Thruster:

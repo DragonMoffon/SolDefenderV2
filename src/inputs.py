@@ -2,7 +2,7 @@ from arcade.key import *
 import arcade
 
 import src
-from src.globals import GLOBALS
+from src.time import LOCAL_CLOCK, GLOBAL_CLOCK
 
 M_MOD = 65535
 
@@ -115,7 +115,7 @@ class InputManager:
         self.this_frame_down.add(symbol)
         self.modifiers = modifiers
 
-        self.symbols[symbol] = (True, src.local_time())
+        self.symbols[symbol] = (True, LOCAL_CLOCK.time)
 
     def record_key_up(self, symbol, modifiers):
         self.this_frame_up.add(symbol)
@@ -130,7 +130,7 @@ class InputManager:
         self._mouse_velocity = x - self._mouse_pos[0], y - self._mouse_pos[1]
         self._mouse_pos = (x, y)
 
-        self.symbols[M_MOD+button] = (True, src.local_time())
+        self.symbols[M_MOD+button] = (True, LOCAL_CLOCK.time)
 
     def record_mouse_up(self, button, x, y, modifiers):
         self.this_frame_up.add(M_MOD + button)
@@ -174,9 +174,9 @@ class InputManager:
 
     def key_pressed_time(self, key):
         if isinstance(key, int):
-            return GLOBALS.LOCAL_CLOCK.time_since(self.symbols[key][1])
+            return LOCAL_CLOCK.time_since(self.symbols[key][1])
         elif isinstance(key, str):
-            return GLOBALS.LOCAL_CLOCK.time_since(self.symbols[InputManager.KEY_MAP[key]][1])
+            return LOCAL_CLOCK.time_since(self.symbols[InputManager.KEY_MAP[key]][1])
 
     def mouse_down(self, key):
         if isinstance(key, int):
@@ -198,9 +198,9 @@ class InputManager:
 
     def mouse_pressed_time(self, key):
         if isinstance(key, int):
-            return GLOBALS.LOCAL_CLOCK.time_since(self.symbols[M_MOD+key][1])
+            return LOCAL_CLOCK.time_since(self.symbols[M_MOD+key][1])
         elif isinstance(key, str):
-            return GLOBALS.LOCAL_CLOCK.time_since(self.symbols[InputManager.KEY_MAP[key]][1])
+            return LOCAL_CLOCK.time_since(self.symbols[InputManager.KEY_MAP[key]][1])
 
     def get_modifiers(self, key):
         try:
